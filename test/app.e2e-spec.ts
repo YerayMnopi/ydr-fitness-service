@@ -110,7 +110,7 @@ describe('AppController (e2e)', () => {
       beforeEach(async() => {
         training = trainingFactory();
         token = jwtService.sign({
-          id: 'test'
+          sub: '5d70ff0c-0f9c-4f9c-924c-348ab771014b'
         });
       });
   
@@ -155,6 +155,40 @@ describe('AppController (e2e)', () => {
     
         expect(response.body.length).toBe(3);
       });
+    });
+
+    describe('GET /trainings/:id', () => {
+      const training = trainingFactory();
+      let token: string;
+  
+      beforeEach(async(done) => {
+        await trainingsRepository.save([
+          training,
+          trainingFactory(),
+          trainingFactory(),
+        ]);
+        done();
+        token = jwtService.sign({});
+      });
+  
+      it('should return Unauthorized', async () => {
+        await request.agent(app.getHttpServer())
+          .get(`/trainings/${training.id}`)
+          .set('Accept', 'application/json')
+          .expect('Content-Type', /json/)
+          .expect(401);
+      });
+  
+      it('should return a training', async () => {
+        const response: {body: Exercise} = await request.agent(app.getHttpServer())
+          .get(`/trainings/${training.id}`)  
+          .set('Accept', 'application/json')
+          .set('Authorization', `Bearer ${token}`)
+          .expect('Content-Type', /json/)
+          .expect(200);
+    
+        expect(response.body.id).toBe(training.id);
+      }); 
     });
 
     afterEach(async () => {
