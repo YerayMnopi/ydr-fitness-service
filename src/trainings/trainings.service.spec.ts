@@ -41,7 +41,7 @@ describe('TrainingsService', () => {
     });
 
     it('should call to save method of user repository', async() => {
-      expect(repository.save).toBeCalledWith({userId: userId});
+      expect(repository.save).toBeCalled();
     });
 
     it('should return the created user', async() => {      

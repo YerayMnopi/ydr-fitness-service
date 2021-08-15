@@ -4,6 +4,7 @@ import { TrainingsService } from './trainings.service';
 import { Training } from './training.entity';
 import * as httpMocks from 'node-mocks-http';
 import { Request } from 'express';
+import { JwtStrategy } from 'ydr-nest-common';
 
 describe('TrainingsController', () => {
   let controller: TrainingsController;
@@ -15,7 +16,8 @@ describe('TrainingsController', () => {
       providers: [
         {provide: TrainingsService, useValue: {
           findAll: jest.fn(),
-          create: jest.fn()
+          create: jest.fn(),
+          findById: jest.fn()
         }}],
     }).compile();
 
@@ -34,6 +36,15 @@ describe('TrainingsController', () => {
       jest.spyOn(service, 'findAll').mockImplementation(async() => result);
 
       expect(await controller.findAll()).toBe(result);
+    });
+  });
+
+  describe('findOne', () => {
+    it('should return a training', async () => {
+      const result = {} as Training;
+      jest.spyOn(service, 'findById').mockImplementation(async() => result);
+
+      expect(await controller.findOne('test')).toBe(result);
     });
   });
 

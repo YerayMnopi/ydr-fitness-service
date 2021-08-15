@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { SetEntity } from './set.entity';
 import { SetCreatePayload } from './set-create-payload';
 import { Repository } from 'typeorm';
-import { ExecutionsService } from 'src/execution/executions.service';
+import { ExecutionsService } from '../execution/executions.service';
 
 
 @Injectable()

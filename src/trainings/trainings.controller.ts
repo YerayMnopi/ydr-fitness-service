@@ -18,6 +18,12 @@ export class TrainingsController {
     return this.trainingsService.findAll();
   }
 
+  @Get(':id')
+  @UseGuards(JwtAuthGuard)
+  async findOne(@Param('id') trainingId: string): Promise<Training> {
+    return this.trainingsService.findById(trainingId);
+  }
+
   @Post()
   @UseGuards(JwtAuthGuard)
   async create(@Req() request: Request): Promise<Training> {

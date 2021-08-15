@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Execution } from './execution.entity';
 import { Repository } from 'typeorm';
-import { TrainingsService } from 'src/trainings/trainings.service';
-import { ExercisesService } from 'src/exercises/exercises.service';
+import { TrainingsService } from '../trainings/trainings.service';
+import { ExercisesService } from '../exercises/exercises.service';
 
 @Injectable()
 export class ExecutionsService {

@@ -43,7 +43,11 @@ describe('ExecutionsController', () => {
       jest.spyOn(service, 'create').mockImplementation(async() => result);
       const request = {
         user: {
-          id: 'test'
+          id: 'test',
+        },
+        body: {
+          trainingId: 'test',
+          exerciseId: 'test'
         }
       } as unknown as Request;
 

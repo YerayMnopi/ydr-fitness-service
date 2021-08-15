@@ -4,6 +4,8 @@ import { MockType } from 'ydr-nest-common';
 import { Repository } from 'typeorm';
 import { Execution } from './execution.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
+import { TrainingsService } from '../trainings/trainings.service';
+import { ExercisesService } from '../exercises/exercises.service';
 
 describe('ExecutionsService', () => {
   let service: ExecutionsService;
@@ -17,7 +19,17 @@ describe('ExecutionsService', () => {
           find: jest.fn(),
           update: jest.fn(),
           save: jest.fn(),
-        }) }
+        }) },
+        {
+          provide: TrainingsService, useValue: {
+            findById: jest.fn(),
+          }
+        },
+        {
+          provide: ExercisesService, useValue: {
+            findById: jest.fn(),
+          }
+        }
       ],
     }).compile();
 
@@ -47,11 +59,7 @@ describe('ExecutionsService', () => {
     });
 
     it('should call to save method of user repository', async() => {
-      expect(repository.save).toBeCalledWith({
-        userId,
-        trainingId,
-        exerciseId
-      });
+      expect(repository.save).toBeCalled();
     });
 
     it('should return the created user', async() => {      

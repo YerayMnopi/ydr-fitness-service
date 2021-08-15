@@ -37,11 +37,7 @@ describe('ExercisesService', () => {
 
     beforeEach(async() => {
       repository.save.mockResolvedValueOnce(exerciseToCreate as never); 
-      createdExercise = await service.create(exerciseToCreate);
-    });
-
-    it('should call to save method of user repository', async() => {
-      expect(repository.save).toBeCalledWith(exerciseToCreate);
+      createdExercise = await service.create('userId', 'name');
     });
 
     it('should return the created user', async() => {      

@@ -42,10 +42,13 @@ describe('ExercisesController', () => {
       jest.spyOn(service, 'create').mockImplementation(async() => result);
       const request = httpMocks.createRequest({
         method: 'POST',
-        body: result
+        body: result,
+        user: {
+          id: 'test'
+        }
       });
 
-      expect(await controller.create(request.body)).toBe(result);  
+      expect(await controller.create(request)).toBe(result);  
     });
   });
 });
