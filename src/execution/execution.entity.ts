@@ -26,14 +26,11 @@ export class Execution extends UpdateableEntity {
         eager: true,
     })
     @JoinColumn()
-    exercise: Execution;
+    exercise: Exercise;
 
     @OneToMany(type => SetEntity, set => set.execution, {
         eager: true,
         cascade: true
     })
     sets: SetEntity[];
-
-    @Column('decimal', { nullable: true })
-    volume: number;
 }
